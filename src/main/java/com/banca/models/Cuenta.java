@@ -21,6 +21,7 @@ public class Cuenta {
     private double saldoDisponible;
     private String numeroCuenta;
     
+    
     public Cuenta() {
     }
 
