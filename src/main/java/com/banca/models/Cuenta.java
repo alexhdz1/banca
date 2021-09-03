@@ -22,15 +22,12 @@ import java.io.IOException;
 
 public class Cuenta {
     
-    private static final String PATH = new Constante().PATH_DB;
+    private static final String PATH = Constante.PATH_DB;
 
     private String nombrePropietario;
     private double saldoDisponible;
     private String numeroCuenta;
     
-    /** 
-     * Constructor por omisión
-    */
     public Cuenta() {
     }
 
@@ -47,10 +44,6 @@ public class Cuenta {
         this.numeroCuenta = String.valueOf(obtenerUltimoNumeroCuenta());
     }
 
-    /** 
-      * Función get para retornar el nombre de la cuenta.
-      * @return el nombre del propietario
-    */
     public Cuenta(String nombrePropietario, String numeroCuenta, double saldoDisponible){
         this.nombrePropietario = nombrePropietario;
         this.saldoDisponible = saldoDisponible;
@@ -232,14 +225,14 @@ public class Cuenta {
       * @param numeroCuenta número de cuenta
       * @param monto la cantidad a ingresar
       *@throws IOException 
-      *@throws CsvValidationException
+     * @throws CsvException
     */
-    public void ingresarDinero(String numeroCuenta, double monto) throws IOException, CsvException{
+    public void ingresarDinero(double monto) throws IOException, CsvException{
         String fileName = PATH;
         CSVReader reader = new CSVReader(new FileReader(fileName));
         List<String[]> allElements = (List<String[]>) reader.readAll();
         for(String[] element : allElements){
-            if(element[1].equals(numeroCuenta)){
+            if(element[1].equals(this.numeroCuenta)){
                 element[2] = String.valueOf(Double.valueOf(element[2]) + monto);
             }
         }
@@ -257,12 +250,12 @@ public class Cuenta {
       *@throws IOException 
       *@throws CsvValidationException
     */
-    public void retirarDinero(String numeroCuenta, double monto) throws IOException, CsvException{
+    public void retirarDinero(double monto) throws IOException, CsvException{
         String fileName = PATH;
         CSVReader reader = new CSVReader(new FileReader(fileName));
         List<String[]> allElements = (List<String[]>) reader.readAll();
         for(String[] element : allElements){
-            if(element[1].equals(numeroCuenta)){
+            if(element[1].equals(this.numeroCuenta)){
                 element[2] = String.valueOf(Double.valueOf(element[2]) - monto);
             }
         }
