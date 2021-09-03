@@ -1,5 +1,6 @@
 package com.banca;
 
+import com.banca.db.DataBase;
 import com.banca.models.Cuenta;
 import com.opencsv.exceptions.CsvException;
 
@@ -16,8 +17,10 @@ public final class App {
      * @throws CsvException
      */    
     public void run() throws IOException, CsvException {
-        Cuenta cuenta2 = new Cuenta();
-        cuenta2.ingresarDinero("10100", 200);
+        DataBase db = new DataBase();
+        Cuenta solicitud = db.searchByNumeroCuenta("1000");
+        solicitud.retirarDinero(1000);
+        System.out.println(solicitud.toString());
     }
 
     /**

@@ -21,7 +21,7 @@ public class Cuenta {
     private double saldoDisponible;
     private String numeroCuenta;
     
-    
+
     public Cuenta() {
     }
 
@@ -31,6 +31,7 @@ public class Cuenta {
         this.numeroCuenta = String.valueOf(obtenerUltimoNumeroCuenta());
     }
 
+    
     public Cuenta(String nombrePropietario, String numeroCuenta, double saldoDisponible){
         this.nombrePropietario = nombrePropietario;
         this.saldoDisponible = saldoDisponible;
@@ -144,12 +145,12 @@ public class Cuenta {
         writer.close();
     }
 
-    public void ingresarDinero(String numeroCuenta, double monto) throws IOException, CsvException{
+    public void ingresarDinero(double monto) throws IOException, CsvException{
         String fileName = PATH;
         CSVReader reader = new CSVReader(new FileReader(fileName));
         List<String[]> allElements = (List<String[]>) reader.readAll();
         for(String[] element : allElements){
-            if(element[1].equals(numeroCuenta)){
+            if(element[1].equals(this.numeroCuenta)){
                 element[2] = String.valueOf(Double.valueOf(element[2]) + monto);
             }
         }
@@ -160,12 +161,12 @@ public class Cuenta {
         writer.close();
     }
 
-    public void retirarDinero(String numeroCuenta, double monto) throws IOException, CsvException{
+    public void retirarDinero(double monto) throws IOException, CsvException{
         String fileName = PATH;
         CSVReader reader = new CSVReader(new FileReader(fileName));
         List<String[]> allElements = (List<String[]>) reader.readAll();
         for(String[] element : allElements){
-            if(element[1].equals(numeroCuenta)){
+            if(element[1].equals(this.numeroCuenta)){
                 element[2] = String.valueOf(Double.valueOf(element[2]) - monto);
             }
         }
